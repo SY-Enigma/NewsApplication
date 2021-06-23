@@ -30,38 +30,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- *
- */
-
-public class InternationalFragment extends BaseFragment implements LoadListView.ILoadListener,
+public class SportFragment extends BaseFragment implements LoadListView.ILoadListener,
         LoadListView.RLoadListener, NewsAdapter.CallBack{
-
-    final String url = "http://api.tianapi.com/world/index?key=5247ca753ac53750629e9a01664d99c2&num=30";
+    final String url = "http://api.tianapi.com/tiyu/index?key=5247ca753ac53750629e9a01664d99c2&num=30";
 
     private View view;
     private LoadListView mListView;
     private List<News> newsList;
     private MyDatabaseHelper helper;
 
-
     private NewsAdapter adapter;
-
     private MyBitmapUtils myBitmapUtils;
 
-    public InternationalFragment() {
+    public SportFragment() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.news, container, false);
         myBitmapUtils = new MyBitmapUtils(getContext());
         helper = new MyDatabaseHelper(getContext(),"UserDB.db",null,6);
-
+//        dao = new OperationDao(helper);
         setupViews();
         if (!HttpUtils.isNetworkAvalible(getContext())) {
-
-            Toast.makeText(getContext(),"没有网络,请检查网络！",Toast.LENGTH_SHORT).show();
+            //HttpUtils.checkNetwork(getActivity());
+            Toast.makeText(getContext(), "当前没有可以使用的网络，请检查网络设置！", Toast.LENGTH_SHORT).show();
 
         } else {
             initNews();
@@ -90,7 +84,6 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
                 parseJSONWithGSON(jsonData);
             }
         }).start();
-
     }
 
 
@@ -119,6 +112,10 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
+//                mdao.Add(news,"channel_Sport");
+//                mdao.close_db();
+//                dao.add_news(news,"channel_Sport");
+//                add_news(news,"channel_Sport");
                 SQLiteDatabase db = helper.getWritableDatabase();
 
                 ContentValues values = new ContentValues();
@@ -129,13 +126,81 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-                db.insert("Ente_News", null, values);
+                db.insert("Sport_News", null, values);
                 db.insert("All_News",null,values);
 
                 db.close();
-                newsList.add(news);
+
+                newsList.add(0,news);
 
             }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+//    public void add_news(News news, String channel){
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        List<String> channelList = new ArrayList<String>();
+//        channelList.add("channel_Econ"); //0
+//        channelList.add("channel_Ente"); //1
+//        channelList.add("channel_Mili"); //2
+//        channelList.add("channel_Social"); //3
+//        channelList.add("channel_Sport"); //4
+//        channelList.add("channel_Tech"); //5
+//        channelList.add("channel_Anime"); //6
+////        String table = channelList.get(number);
+//        if (news == null)
+//            return;
+////        SQLiteDatabase db = dbhelper.getWritableDatabase();
+////        if (!queryEqual_Title(channel,news.getNews_title())){
+//        ContentValues values = new ContentValues();
+//        values.put("picurl",news.getNews_picurl());
+//        values.put("title",news.getNews_title());
+//        values.put("url",news.getNews_url());
+//        values.put("uniquekey",news.getUniquekey());
+//        values.put("date",news.getDate());
+//        values.put("author",news.getAuthor_name());
+//        values.put("is_see",0);
+//        values.put("good",0);
+//        values.put("collect",0);
+//        db.insert(channel,null,values);
+////        }
+//        db.close();
+//    }
+
+    private void parseJSONWithGSON_Refresh(String jsonData) {
+
+        try {
+//            Dao mdao = new Dao();
+//            newsList.clear();
+            JSONObject jsonObject = new JSONObject(jsonData);
+            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
+
+            int count = new Random().nextInt(10)+1;
+            for (int i = count;i<count+10;i++) {
+                JSONObject json_news = jsonArray.getJSONObject(i);
+                String imgUrl = json_news.getString("picUrl");
+                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
+                String title = json_news.getString("title");
+                String date = json_news.getString("ctime");
+                String author_name = json_news.getString("description");
+                String url = json_news.getString("url");
+
+                News news = new News(bitmap, title, url, date, imgUrl, author_name);
+//            mdao.Add(news,"channel_Sport");
+//            mdao.close_db();
+                newsList.add(0, news);
+            }
+
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -143,66 +208,22 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
                     adapter.notifyDataSetChanged();
                 }
             });
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
     }
-
-//    private void parseJSONWithGSON_Refresh(String jsonData) {
-//
-//        try {
-////            Dao mdao = new Dao();
-////            newsList.clear();
-//            JSONObject jsonObject = new JSONObject(jsonData);
-//            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-//            int count = new Random().nextInt(10)+1;
-//            for (int i =count;i<count+10;i++){
-//                JSONObject json_news = jsonArray.getJSONObject(i);
-//                String imgUrl = json_news.getString("picUrl");
-//                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-//                String title = json_news.getString("title");
-//                String date = json_news.getString("ctime");
-//                String author_name = json_news.getString("description");
-//                String url = json_news.getString("url");
-//
-//                News news = new News(bitmap, title, url, imgUrl, date, author_name);
-////            mdao.Add(news,"channel_Econ");
-////            mdao.close_db();
-//                newsList.add(news);
-//            }
-////            JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(30) + 1);
-////            String imgUrl = json_news.getString("picUrl");
-////            Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-////            String title = json_news.getString("title");
-////            String date = json_news.getString("ctime");
-////            String author_name = json_news.getString("description");
-////            String url = json_news.getString("url");
-////
-////            News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//////            mdao.Add(news,"channel_Ente");
-//////            mdao.close_db();
-////            newsList.add(0, news);
-//            getActivity().runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    adapter.notifyDataSetChanged();
-//                }
-//            });
-//
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     private void parseJSONWithGSON_Load(String jsonData) {
 
         try {
+//            Dao mdao = new Dao();
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
+
+//            int count = new  Random().nextInt(10)+1;
+//            for (int i =count;i<count+10;i++) {
                 JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(28)+1);
                 String imgUrl = json_news.getString("picUrl");
                 Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
@@ -212,7 +233,10 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
+//            mdao.Add(news,"channel_Sport");
+//            mdao.close_db();
                 newsList.add(news);
+//            }
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -250,7 +274,6 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
             }
         }).start();
     }
-
 
     private void setupViews() {
 
@@ -295,7 +318,7 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
 
     @Override
     public void click(View view) {
-        Toast.makeText(getContext(), "已删除新闻！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "该新闻已删除！", Toast.LENGTH_SHORT).show();
         newsList.remove(Integer.parseInt(view.getTag().toString()));
         adapter.notifyDataSetChanged();
     }

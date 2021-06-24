@@ -108,7 +108,7 @@ public class SeeActivity extends AppCompatActivity implements NewsAdapter.CallBa
                         adapter.notifyDataSetChanged();
                     }
                 });
-//                mdao.close_db();
+//                mdao.close_db();r
                 db.close();
             }
         }).start();

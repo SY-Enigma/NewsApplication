@@ -73,7 +73,6 @@
         android:password="true" />
 
 
-
     <CheckBox
         android:id="@+id/checkbox_tiaokuan"
         android:layout_width="wrap_content"

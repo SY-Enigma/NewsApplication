@@ -83,8 +83,7 @@ public class HomeFragment_bak extends Fragment implements NewsAdapter.CallBack{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_main_bak, container, false);
+
         view = inflater.inflate(R.layout.fragment_home_bak, container, false);
         initCategory();
         initNews();
@@ -99,8 +98,6 @@ public class HomeFragment_bak extends Fragment implements NewsAdapter.CallBack{
 
     private void initNews() {
         for (int i = 0; i < 30; i++) {
-//            News news = new News(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), "这是新闻" + (i + 1) + "的标题");
-//            newsList.add(news);
         }
     }
 
@@ -115,7 +112,7 @@ public class HomeFragment_bak extends Fragment implements NewsAdapter.CallBack{
 
     private void initCategory() {
         String[] categories = {
-                "社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"
+                "国际", "VR", "体育", "NBA", "CBA", "IT", "足球"
         };
         for (int i = 0; i < categories.length; i++) {
             String category = categories[i];

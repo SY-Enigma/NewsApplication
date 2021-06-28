@@ -127,10 +127,6 @@ public class CBAFragment extends BaseFragment implements LoadListView.ILoadListe
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//                mdao.Add(news,"channel_Mili");
-//                mdao.close_db();
-//                dao.add_news(news,"channel_Mili");
-//                add_news(news,"channel_Mili");
                 SQLiteDatabase db = helper.getWritableDatabase();
 
                 ContentValues values = new ContentValues();
@@ -141,7 +137,7 @@ public class CBAFragment extends BaseFragment implements LoadListView.ILoadListe
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-                db.insert("Mili_News", null, values);
+                db.insert("cba_News", null, values);
                 db.insert("All_News",null,values);
 
                 db.close();
@@ -160,35 +156,6 @@ public class CBAFragment extends BaseFragment implements LoadListView.ILoadListe
 
     }
 
-//    public void add_news(News news, String channel){
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//        List<String> channelList = new ArrayList<String>();
-//        channelList.add("channel_Econ"); //0
-//        channelList.add("channel_Ente"); //1
-//        channelList.add("channel_Mili"); //2
-//        channelList.add("channel_Social"); //3
-//        channelList.add("channel_Sport"); //4
-//        channelList.add("channel_Tech"); //5
-//        channelList.add("channel_Anime"); //6
-////        String table = channelList.get(number);
-//        if (news == null)
-//            return;
-////        SQLiteDatabase db = dbhelper.getWritableDatabase();
-////        if (!queryEqual_Title(channel,news.getNews_title())){
-//        ContentValues values = new ContentValues();
-//        values.put("picurl",news.getNews_picurl());
-//        values.put("title",news.getNews_title());
-//        values.put("url",news.getNews_url());
-//        values.put("uniquekey",news.getUniquekey());
-//        values.put("date",news.getDate());
-//        values.put("author",news.getAuthor_name());
-//        values.put("is_see",0);
-//        values.put("good",0);
-//        values.put("collect",0);
-//        db.insert(channel,null,values);
-////        }
-//        db.close();
-//    }
 
     private void parseJSONWithGSON_Refresh(String jsonData) {
 

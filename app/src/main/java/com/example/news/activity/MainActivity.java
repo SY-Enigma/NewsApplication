@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private LinearLayout ll_main, ll_setting, ll_mine,ll_video;
-//    private Button button;
 
     private HomeFragment mainFragment;
     private SettingFragment settingFragment;

@@ -56,7 +56,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mine, container, false);
         initView();
-//        thread.start();
+
         //        高斯模糊
         Glide.with(this)
                 .load(R.drawable.ic_con)
@@ -78,8 +78,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
         my_head.setOnClickListener(this);
         good.setOnClickListener(this);
-
-//        request_authentication.setOnClickListener(this);
 
         try {
             String path = getContext().getCacheDir().getPath();
@@ -123,8 +121,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         comment = view.findViewById(R.id.commenttext);
         good = view.findViewById(R.id.diazan);
         see = view.findViewById(R.id.mysee);
-//        request_authentication = view.findViewById(R.id.request_authentication);
-//        jinriyuedu = view.findViewById(R.id.jinriyuedu);
     }
 
 
@@ -172,9 +168,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.request_authentication:
-//                Toast.makeText(getContext(), "该功能暂未开启,敬请期待", Toast.LENGTH_SHORT).show();
-//                break;
             case R.id.edit_mine: {
                 Intent intent = new Intent(getContext(), EditMineActivity.class);
                 startActivity(intent);

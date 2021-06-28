@@ -124,7 +124,7 @@ public class FootballFragment extends BaseFragment implements LoadListView.ILoad
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-                db.insert("Econ_News", null, values);
+                db.insert("football_News", null, values);
 
                 db.close();
                 newsList.add(news);
@@ -143,39 +143,6 @@ public class FootballFragment extends BaseFragment implements LoadListView.ILoad
 
     }
 
-//    private void parseJSONWithGSON_Refresh(String jsonData) {
-//
-//        try {
-//
-//            JSONObject jsonObject = new JSONObject(jsonData);
-//            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-//            int count = new Random().nextInt(10)+1;
-//            for (int i = count;i<count+10;i++) {
-//                JSONObject json_news = jsonArray.getJSONObject(i);
-//                String imgUrl = json_news.getString("picUrl");
-//                Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-//                String title = json_news.getString("title");
-//                String date = json_news.getString("ctime");
-//                String author_name = json_news.getString("description");
-//                String url = json_news.getString("url");
-//
-//                News news = new News(bitmap, title, url, date, imgUrl, author_name);
-//                newsList.add(0, news);
-//            }
-//
-//
-//            getActivity().runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    adapter.notifyDataSetChanged();
-//                }
-//            });
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     private void parseJSONWithGSON_Load(String jsonData) {
 

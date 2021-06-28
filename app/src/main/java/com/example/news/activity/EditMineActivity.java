@@ -2,26 +2,33 @@ package com.example.news.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.news.R;
+import com.example.news.fragment.MineFragment;
 import com.example.news.util.ApplicationUtil;
 import com.example.news.util.MyDatabaseHelper;
 import com.example.news.util.SharedPreUtil;
 
+/**
+ * 修改密码
+ */
 public class EditMineActivity extends AppCompatActivity {
+
     private EditText update_username, update_password, update_repassword;
 
     private TextView update_user;
+    private ImageView icReturn;
 
     private MyDatabaseHelper dbHelper;
 
-    //User user = User.getInstance();
     String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +46,27 @@ public class EditMineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateUser();
-                //finish();
+
             }
         });
         ApplicationUtil.getInstance().addActivity(this);
 
+        icReturn = findViewById(R.id.ic_return);
+        icReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(EditMineActivity.this, MineFragment.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initView() {
-        update_user =(TextView) findViewById(R.id.update_user);
-        update_username = (EditText) findViewById(R.id.update_username);
-        update_password = (EditText) findViewById(R.id.update_password);
-        update_repassword = (EditText) findViewById(R.id.update_repassword);
+        update_user =findViewById(R.id.update_user);
+        update_username = findViewById(R.id.update_username);
+        update_password = findViewById(R.id.update_password);
+        update_repassword = findViewById(R.id.update_repassword);
 
     }
 

@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.news.R;
+import com.example.news.entity.Code;
 import com.example.news.util.AlbumUtil;
 import com.example.news.util.ApplicationUtil;
 import com.example.news.util.MyDatabaseHelper;
@@ -33,11 +35,14 @@ import java.io.FileOutputStream;
 public class RegisterActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
 
+    private String realCode;
     private TextView save_user;
     private ImageView shangchuan_head,fh;
     private EditText username, userpassword, repassword;
     private CheckBox checkBox;
+    private EditText et_PhoneCodes;
 
+    private ImageView iv_ShowCode;
     private static final int CHOSSE_PHOTO = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,22 @@ public class RegisterActivity extends AppCompatActivity {
         userpassword =(EditText) findViewById(R.id.register_password);
         repassword =(EditText) findViewById(R.id.register_repassword);
         checkBox =(CheckBox) findViewById(R.id.checkbox_tiaokuan);
+
+        et_PhoneCodes = findViewById(R.id.et_phoneCodes);
+        iv_ShowCode = findViewById(R.id.iv_showCode);
+
+        //将验证码用图片的形式显示出来
+        iv_ShowCode.setImageBitmap(Code.getInstance().createBitmap());
+        realCode = Code.getInstance().getCode().toLowerCase();
+
+        iv_ShowCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //改变随机验证码的生成
+                iv_ShowCode.setImageBitmap(Code.getInstance().createBitmap());
+                realCode = Code.getInstance().getCode().toLowerCase();
+            }
+        });
 
         fh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,17 +105,23 @@ public class RegisterActivity extends AppCompatActivity {
                     String username_str = username.getText().toString();
                     String userpassword_str = userpassword.getText().toString();
                     String repassword_str = repassword.getText().toString();
+                    String phoneCode = et_PhoneCodes.getText().toString().toLowerCase();
 
-                    if (userpassword_str.equals(repassword_str)) {
-                        ContentValues values = new ContentValues();
-                        //组装数据
-                        values.put("name", username_str);
-                        values.put("password", userpassword_str);
+                    if (!TextUtils.isEmpty(username_str) && !TextUtils.isEmpty(repassword_str) && !TextUtils.isEmpty(phoneCode)) {
+                        if (phoneCode.equals(realCode)){
+                            ContentValues values = new ContentValues();
+                            //将用户和密码存入User表中
+                            values.put("name", username_str);
+                            values.put("password", userpassword_str);
+                            db.insert("User", null, values);
 
-                        db.insert("User", null, values);
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            finish();
+                            Toast.makeText(RegisterActivity.this,"验证通过，注册成功",Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(RegisterActivity.this, "验证码错误,注册失败", Toast.LENGTH_SHORT).show();
+                        }
 
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                        finish();
                     } else {
                         Toast.makeText(RegisterActivity.this, "两次密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
                     }
@@ -105,6 +132,38 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+
+//        save_user.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(checkBox.isChecked()){
+//                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+//
+//                    String username_str = username.getText().toString();
+//                    String userpassword_str = userpassword.getText().toString();
+//                    String repassword_str = repassword.getText().toString();
+//
+//                    if (userpassword_str.equals(repassword_str)) {
+//                        ContentValues values = new ContentValues();
+//                        //组装数据
+//                        values.put("name", username_str);
+//                        values.put("password", userpassword_str);
+//
+//                        db.insert("User", null, values);
+//
+//                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+//                        finish();
+//                    } else {
+//                        Toast.makeText(RegisterActivity.this, "两次密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
+//                    }
+//                    db.close();
+//                }else {
+//                    Toast.makeText(RegisterActivity.this, "请勾选同意使用条款", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
 
 
 

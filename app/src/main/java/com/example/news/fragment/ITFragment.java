@@ -41,7 +41,6 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
     private LoadListView mListView;
     private List<News> newsList;
     private MyDatabaseHelper Helper ;
-//    private OperationDao dao;
 
     private NewsAdapter adapter;
 
@@ -123,8 +122,7 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//                add_news(news,"channel_Anime");
-//                dao.add_news(news,"channel_Anime");
+
                 SQLiteDatabase db = Helper.getWritableDatabase();
 
                 ContentValues values = new ContentValues();
@@ -135,7 +133,7 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-//                db.insert("Anime_News", null, values);
+//                db.insert("IT_News", null, values);
                 db.insert("All_News",null,values);
 
                 db.close();
@@ -334,15 +332,5 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
         }
         db.close();
         return iseuqal;
-//        public boolean queryEqual_Title(String tables,String title){
-//        SQLiteDatabase db = Helper.getReadableDatabase();
-//        Cursor cursor = db.rawQuery("select * from " + tables + " where title = ?",new String[]{title});
-//        Integer count = cursor.getCount();
-//        db.close();
-//        if (count == 0)
-//            return false;
-//        else
-//            return true;
-//    }
     }
 }

@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text="账号安全"
+            android:text="修改密码"
             android:textColor="@color/black"
             android:textSize="20sp" />
 

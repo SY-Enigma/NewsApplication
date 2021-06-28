@@ -133,7 +133,7 @@ public class VRFragment extends BaseFragment implements LoadListView.ILoadListen
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-                db.insert("Tech_News", null, values);
+                db.insert("VR_News", null, values);
                 db.insert("All_News",null,values);
 
                 db.close();

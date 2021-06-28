@@ -90,7 +90,6 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
     private void parseJSONWithGSON(String jsonData) {
 
         try {
-//            Dao mdao = new Dao();
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
             int count = new Random().nextInt(10)+1;
@@ -112,10 +111,7 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//                mdao.Add(news,"channel_Sport");
-//                mdao.close_db();
-//                dao.add_news(news,"channel_Sport");
-//                add_news(news,"channel_Sport");
+
                 SQLiteDatabase db = helper.getWritableDatabase();
 
                 ContentValues values = new ContentValues();
@@ -147,83 +143,14 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
 
     }
 
-//    public void add_news(News news, String channel){
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//        List<String> channelList = new ArrayList<String>();
-//        channelList.add("channel_Econ"); //0
-//        channelList.add("channel_Ente"); //1
-//        channelList.add("channel_Mili"); //2
-//        channelList.add("channel_Social"); //3
-//        channelList.add("channel_Sport"); //4
-//        channelList.add("channel_Tech"); //5
-//        channelList.add("channel_Anime"); //6
-////        String table = channelList.get(number);
-//        if (news == null)
-//            return;
-////        SQLiteDatabase db = dbhelper.getWritableDatabase();
-////        if (!queryEqual_Title(channel,news.getNews_title())){
-//        ContentValues values = new ContentValues();
-//        values.put("picurl",news.getNews_picurl());
-//        values.put("title",news.getNews_title());
-//        values.put("url",news.getNews_url());
-//        values.put("uniquekey",news.getUniquekey());
-//        values.put("date",news.getDate());
-//        values.put("author",news.getAuthor_name());
-//        values.put("is_see",0);
-//        values.put("good",0);
-//        values.put("collect",0);
-//        db.insert(channel,null,values);
-////        }
-//        db.close();
-//    }
 
-    private void parseJSONWithGSON_Refresh(String jsonData) {
-
-        try {
-//            Dao mdao = new Dao();
-//            newsList.clear();
-            JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-
-            int count = new Random().nextInt(10)+1;
-            for (int i = count;i<count+10;i++) {
-                JSONObject json_news = jsonArray.getJSONObject(i);
-                String imgUrl = json_news.getString("picUrl");
-                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-                String title = json_news.getString("title");
-                String date = json_news.getString("ctime");
-                String author_name = json_news.getString("description");
-                String url = json_news.getString("url");
-
-                News news = new News(bitmap, title, url, date, imgUrl, author_name);
-//            mdao.Add(news,"channel_Sport");
-//            mdao.close_db();
-                newsList.add(0, news);
-            }
-
-
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.notifyDataSetChanged();
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void parseJSONWithGSON_Load(String jsonData) {
 
         try {
-//            Dao mdao = new Dao();
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
 
-//            int count = new  Random().nextInt(10)+1;
-//            for (int i =count;i<count+10;i++) {
                 JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(28)+1);
                 String imgUrl = json_news.getString("picUrl");
                 Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
@@ -233,11 +160,7 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//            mdao.Add(news,"channel_Sport");
-//            mdao.close_db();
                 newsList.add(news);
-//            }
-
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

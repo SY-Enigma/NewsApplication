@@ -53,8 +53,6 @@ public class CollectionActivity extends AppCompatActivity implements NewsAdapter
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                Dao mdao = new Dao();
-//                newsList = mdao.query_collect();
                 SQLiteDatabase db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("select * from Collection_News", null);
                 if (cursor.getCount() != 0) {
@@ -88,7 +86,6 @@ public class CollectionActivity extends AppCompatActivity implements NewsAdapter
                         adapter.notifyDataSetChanged();
                     }
                 });
-//                mdao.close_db();
 
                 db.close();
             }
@@ -112,16 +109,5 @@ public class CollectionActivity extends AppCompatActivity implements NewsAdapter
         adapter.notifyDataSetChanged();
         Toast.makeText(this, "该新闻已被移除收藏夹！", Toast.LENGTH_SHORT).show();
 
-        /*
-        int position = Integer.parseInt(view.getTag().toString());
-        SharedPreferences sp = getSharedPreferences("collection", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.remove(newsList.get(position).getNews_title());
-        editor.apply();
-        newsList.remove(position);
-        adapter.notifyDataSetChanged();
-
-        Toast.makeText(this, "该新闻已被移除收藏夹！", Toast.LENGTH_SHORT).show();
-        */
     }
 }

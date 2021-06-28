@@ -24,7 +24,6 @@
             android:name=".activity.SearchActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".activity.CommentActivity" />
-        <activity android:name=".activity.CoverActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.CollectionActivity" />

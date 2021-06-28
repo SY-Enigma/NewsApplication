@@ -23,7 +23,6 @@ import com.example.news.R;
 import com.example.news.activity.AboutAppActivity;
 
 import com.example.news.activity.CoverActivity1;
-import com.example.news.util.ApplicationUtil;
 import com.example.news.util.FileCacheUtils;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -112,13 +111,12 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
             }
             break;
             case R.id.check_version: {
-                Toast.makeText(getContext(), "当前已为最新版10.2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "当前已为最新版10.1", Toast.LENGTH_SHORT).show();
             }
             break;
             case R.id.about_app: {
                 Intent intent = new Intent(getContext(), AboutAppActivity.class);
                 startActivity(intent);
-//                Toast.makeText(getContext(), "@News news.com version 1.0", Toast.LENGTH_SHORT).show();
             }
             break;
             case R.id.clear_cache: {

@@ -34,7 +34,7 @@ public class ShowNewsActivity extends AppCompatActivity {
     private ProgressDialog mDialog;
 
     private MyDatabaseHelper helper;
-//    private MyDatabaseHelper Helper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +98,7 @@ public class ShowNewsActivity extends AppCompatActivity {
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Dao daohelper = new Dao();
                 String text = context.getText().toString();
-
-//                add_comment(text,news_url,news_title,news_date,news_author,news_picurl);
                 SQLiteDatabase db = helper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("news_url", news_url);
@@ -124,8 +121,7 @@ public class ShowNewsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 good_news.setImageResource(R.drawable.dianzan_choose);
 
-//                int channel = query_channel(news_title);
-//                update_good(channel,news_title);
+
                 SQLiteDatabase db = helper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("news_url", news_url);
@@ -169,11 +165,11 @@ public class ShowNewsActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        show_news =(WebView) findViewById(R.id.show_news);
-        collect_news =(ImageView) findViewById(R.id.collect_news);
-        good_news = (ImageView) findViewById(R.id.good_news);
-        comment = (Button) findViewById(R.id.btncomment);
-        context = (EditText) findViewById(R.id.comment);
+        show_news =findViewById(R.id.show_news);
+        collect_news =findViewById(R.id.collect_news);
+        good_news = findViewById(R.id.good_news);
+        comment = findViewById(R.id.btncomment);
+        context = findViewById(R.id.comment);
     }
 
 

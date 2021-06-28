@@ -38,7 +38,6 @@ public class VideoFragment extends BaseFragment {
     final String url = "http://api.tianapi.com/txapi/dyvideohot/index?key=5247ca753ac53750629e9a01664d99c2&num=30";
     private PullLoadMoreRecyclerView recyclerView;
     private MyDatabaseHelper helper;
-//    private OperationDao dao;
 
     List<Video> videoList = new ArrayList<>();
     VideoAdapter adapter;
@@ -93,7 +92,6 @@ public class VideoFragment extends BaseFragment {
     }
 
     private class VideoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView image_cover;
         private ImageView avatar;
         private TextView title;
         private TextView author;
@@ -102,7 +100,6 @@ public class VideoFragment extends BaseFragment {
         public VideoHolder(View view) {
             super(view);
             itemView.setOnClickListener(this);
-//            image_cover = (ImageView)view.findViewById(R.id.);
             title = (TextView) view.findViewById(R.id.videoTitle);
             author = (TextView) view.findViewById(R.id.video_item_author);
             avatar = (ImageView) view.findViewById(R.id.video_item_avatar);
@@ -124,7 +121,6 @@ public class VideoFragment extends BaseFragment {
             Glide.with(getContext())
                     .load(imgurl)
                     .centerCrop()
-                    //.placeholder(R.drawable.timg)
                     .into(avatar);
         }
 
@@ -181,10 +177,7 @@ public class VideoFragment extends BaseFragment {
                     address = convertUrlHttp(address);
                     String author = json_video.getString("author");
                     Video video = new Video(address,cover,title,author,imgUrl);
-//                        mdao.add_video(video);
-//                        mdao.close_db();
-//                        dao.add_video(video);
-//                        add_video(video);
+
                     SQLiteDatabase db = helper.getWritableDatabase();
 
                     ContentValues values = new ContentValues();
@@ -220,7 +213,6 @@ public class VideoFragment extends BaseFragment {
             public void run() {
 
                 try {
-//                    Dao mdao = new Dao();
                     String jsonData = HttpUtils.requestHttp(url);
                     JSONObject jsonObject = new JSONObject(jsonData);
                     JSONArray jsonArray = jsonObject.getJSONArray("newslist");
@@ -234,10 +226,7 @@ public class VideoFragment extends BaseFragment {
                         address = convertUrlHttp(address);
                         String author = json_video.getString("author");
                         Video video = new Video(address,cover,title,author,imgUrl);
-//                        mdao.add_video(video);
-//                        mdao.close_db();
-//                        dao.add_video(video);
-//                        add_video(video);
+
                         SQLiteDatabase db = helper.getWritableDatabase();
 
                         ContentValues values = new ContentValues();

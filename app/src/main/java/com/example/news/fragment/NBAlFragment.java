@@ -129,7 +129,7 @@ public class NBAlFragment extends BaseFragment implements LoadListView.ILoadList
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-                db.insert("Social_News", null, values);
+                db.insert("NBA_News", null, values);
                 db.insert("All_News",null,values);
 
                 db.close();
@@ -151,53 +151,15 @@ public class NBAlFragment extends BaseFragment implements LoadListView.ILoadList
     }
 
 
-    private void parseJSONWithGSON_Refresh(String jsonData) {
-
-        try {
-//            Dao mdao = new Dao();
-//            newsList.clear();
-            JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-
-            int count = new Random().nextInt(10)+1;
-            for (int i = count;i<count+10;i++) {
-                JSONObject json_news = jsonArray.getJSONObject(i);
-                String imgUrl = json_news.getString("picUrl");
-                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-                String title = json_news.getString("title");
-                String date = json_news.getString("ctime");
-                String author_name = json_news.getString("description");
-                String url = json_news.getString("url");
-
-                News news = new News(bitmap, title, url, date, imgUrl, author_name);
-//            mdao.Add(news,"channel_Social");
-//            mdao.close_db();
-                newsList.add(0, news);
-            }
-
-
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.notifyDataSetChanged();
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void parseJSONWithGSON_Load(String jsonData) {
 
         try {
-//            Dao mdao = new Dao();
+
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
 
-//            int count = new Random().nextInt(10)+1;
-//            for (int i = count;i<count+10;i++) {
+
                 JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(28)+1);
                 String imgUrl = json_news.getString("picUrl");
                 Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
@@ -207,10 +169,7 @@ public class NBAlFragment extends BaseFragment implements LoadListView.ILoadList
                 String url = json_news.getString("url");
 
                 News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//            mdao.Add(news,"channel_Social");
-//            mdao.close_db();
                 newsList.add(news);
-//            }
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -290,6 +249,7 @@ public class NBAlFragment extends BaseFragment implements LoadListView.ILoadList
 
     }
 
+    //删除新闻
     @Override
     public void click(View view) {
         Toast.makeText(getContext(), "该新闻已删除！", Toast.LENGTH_SHORT).show();

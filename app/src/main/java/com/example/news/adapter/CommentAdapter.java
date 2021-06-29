@@ -13,10 +13,14 @@ import com.example.news.entity.Comment;
 
 import java.util.List;
 
+/**
+ * 评论适配器
+ */
+
 public class CommentAdapter extends ArrayAdapter<Comment> implements View.OnClickListener{
 
     private int resourceId;
-    private CommentAdapter.CallBack mCallBack;
+    private CallBack mCallBack;
 
     public CommentAdapter(Context context, int textViewResourceId, List<Comment> objects, CommentAdapter.CallBack callBack) {
         super(context, textViewResourceId, objects);

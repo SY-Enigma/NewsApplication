@@ -41,9 +41,7 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
     private LoadListView mListView;
     private List<News> newsList;
     private MyDatabaseHelper Helper ;
-
     private NewsAdapter adapter;
-
     private MyBitmapUtils myBitmapUtils;
 
     public ITFragment() {
@@ -52,13 +50,10 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        Helper = new MyDatabaseHelper(AppContext.getContext(),"UserDB.db",null,6);
         myBitmapUtils = new MyBitmapUtils(getContext());
         Helper = new MyDatabaseHelper(getContext(),"UserDB.db",null,6);
-//        dao = new OperationDao(Helper);
         setupViews();
         if (!HttpUtils.isNetworkAvalible(getContext())) {
-            //HttpUtils.checkNetwork(getActivity());
             Toast.makeText(getContext(), "当前没有可以使用的网络，请检查网络设置！", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -107,15 +102,9 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
             for (int i = count; i < count+10; i++) {
                 JSONObject json_news = jsonArray.getJSONObject(i);
                 String imgUrl = json_news.getString("picUrl");
-                /**
-                 * 采取三级缓存策略加载图片
-                 */
-
+               //采取三级缓存策略加载图片
                 Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-                /**
-                 * 不采取缓存策略
-                 */
-                //Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
+              //不采取缓存策略
                 String title = json_news.getString("title");
                 String date = json_news.getString("ctime");
                 String author_name = json_news.getString("description");
@@ -133,13 +122,9 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-//                db.insert("IT_News", null, values);
                 db.insert("All_News",null,values);
-
                 db.close();
-
                 newsList.add(news);
-
             }
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -154,39 +139,6 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
 
     }
 
-    private void parseJSONWithGSON_Refresh(String jsonData) {
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-//            newsList.clear();
-            int count = new Random().nextInt(10)+1;
-            for (int i = count;i<count+10;i++) {
-                JSONObject json_news = jsonArray.getJSONObject(i);
-                String imgUrl = json_news.getString("picUrl");
-                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-                String title = json_news.getString("title");
-                String date = json_news.getString("ctime");
-                String author_name = json_news.getString("description");
-                String url = json_news.getString("url");
-
-                News news = new News(bitmap, title, url, date, imgUrl, author_name);
-                newsList.add(news);
-            }
-
-
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.notifyDataSetChanged();
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void parseJSONWithGSON_Load(String jsonData) {
 
@@ -281,7 +233,6 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
             public void run() {
                 initRefreshDatas();//得到新数据
                 mListView.reflashComplete();
-//                InsertToDB(newsList);
             }
         }, 2000);
 
@@ -294,43 +245,4 @@ public class ITFragment extends BaseFragment implements LoadListView.ILoadListen
         adapter.notifyDataSetChanged();
     }
 
-    public void InsertToDB(List<News> list) {
-        SQLiteDatabase db = Helper.getWritableDatabase();
-        for (int i = 0;i<list.size();i++) {
-            if (!isEqual(list.get(i).getNews_title())) {
-                ContentValues values = new ContentValues();
-                values.put("news_url", list.get(i).getNews_url());
-                values.put("news_title", list.get(i).getNews_title());
-                values.put("news_date", list.get(i).getDate());
-                values.put("news_author", list.get(i).getAuthor_name());
-                values.put("news_picurl", list.get(i).getNews_picurl());
-                db.insert("All_News",null,values);
-            }
-        }
-        db.close();
-    }
-
-    public boolean isEqual(String newtitle){
-        SQLiteDatabase db = Helper.getReadableDatabase();
-        List<String> list = new ArrayList<>();
-        boolean iseuqal = false;
-        Cursor cursor = db.rawQuery("select news_title from All_News ",null);
-        if (cursor.getCount() != 0) {
-            if (cursor.moveToFirst()) {
-                do {
-                    String title = cursor.getString(cursor.getColumnIndex("news_title"));
-                    list.add(title);
-                }while (cursor.moveToNext());
-            }
-        }
-        else return false;
-        cursor.close();
-        for (int i = 0;i<list.size();i++) {
-            iseuqal = newtitle.equals(list.get(i));
-            if (iseuqal)
-                break;
-        }
-        db.close();
-        return iseuqal;
-    }
 }

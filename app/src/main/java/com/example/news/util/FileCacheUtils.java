@@ -6,6 +6,9 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
+/**
+ * 缓存工具类
+ */
 public class FileCacheUtils {
     private static DecimalFormat df;
 

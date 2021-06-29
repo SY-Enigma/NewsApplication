@@ -14,7 +14,11 @@ import com.example.news.entity.News;
 
 import java.util.List;
 
+/**
+ * 新闻适配器
+ */
 public class NewsAdapter extends ArrayAdapter<News> implements View.OnClickListener{
+
     private int resourceId;
     private CallBack mCallBack;
 
@@ -49,7 +53,6 @@ public class NewsAdapter extends ArrayAdapter<News> implements View.OnClickListe
         }
 
 
-//        viewHolder.newsImg.setImageBitmap(news.getNews_img());
         Glide.with(getContext())
                 .load(news.getNews_picurl())
                 .placeholder(R.drawable.onenews)

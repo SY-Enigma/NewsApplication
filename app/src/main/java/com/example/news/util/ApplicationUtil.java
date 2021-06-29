@@ -6,6 +6,9 @@ import android.app.Application;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Activity管理工具
+ */
 public class ApplicationUtil extends Application {
     private List<Activity> mList = new LinkedList<Activity>();
     private static ApplicationUtil instance;

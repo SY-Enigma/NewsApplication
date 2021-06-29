@@ -7,7 +7,11 @@ import android.util.LruCache;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * 内存缓存
+ */
 public class MemoryCacheUtils {
+    
     private static final String TAG = "MemoryCacheUtils";
 
     // private HashMap<String,Bitmap> mMemoryCache=new HashMap<>();//1.因为强引用,容易造成内存溢出，所以考虑使用下面弱引用的方法

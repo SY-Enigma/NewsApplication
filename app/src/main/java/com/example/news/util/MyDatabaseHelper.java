@@ -29,7 +29,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "news_url text)";
 
     //创建IT表
-    public static final String CREATE_IT_NEWS = "create table IT_News ("
+    public static final String CREATE_IT_NEWS = "create table It_News ("
             + "id integer primary key autoincrement,"
             + "news_title text,"
             + "news_date text,"
@@ -56,7 +56,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "news_picurl text,"
             + "news_url text)";
     //创建cba表
-    public static final String CREATE_CBA_NEWS = "create table cba_News ("
+    public static final String CREATE_CBA_NEWS = "create table Cba_News ("
             + "id integer primary key autoincrement,"
             + "news_title text,"
             + "news_date text,"
@@ -65,7 +65,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "news_url text)";
 
     //创建NBA表
-    public static final String CREATE_NBA_NEWS = "create table NBA_News ("
+    public static final String CREATE_NBA_NEWS = "create table Nba_News ("
             + "id integer primary key autoincrement,"
             + "news_title text,"
             + "news_date text,"
@@ -82,7 +82,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "news_picurl text,"
             + "news_url text)";
     //创建VR表
-    public static final String CREATE_VR_NEWS = "create table VR_News ("
+    public static final String CREATE_VR_NEWS = "create table Vr_News ("
             + "id integer primary key autoincrement,"
             + "news_title text,"
             + "news_date text,"
@@ -147,23 +147,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_USER);
         sqLiteDatabase.execSQL(CREATE_ALL_NEWS);
-
-        sqLiteDatabase.execSQL(CREATE_GJ_NEWS);
-        sqLiteDatabase.execSQL(CREATE_VR_NEWS);
-        sqLiteDatabase.execSQL(CREATE_SPORT_NEWS);
-        sqLiteDatabase.execSQL(CREATE_NBA_NEWS);
-        sqLiteDatabase.execSQL(CREATE_CBA_NEWS);
-        sqLiteDatabase.execSQL(CREATE_IT_NEWS);
-        sqLiteDatabase.execSQL(CREATE_Football_NEWS);
-
-
-        sqLiteDatabase.execSQL(CREATE_VIDEO);
+        sqLiteDatabase.execSQL(CREATE_SEARCH);
         sqLiteDatabase.execSQL(CREATE_COLLECTION_NEWS);
-        sqLiteDatabase.execSQL(CREATE_SEE_NEWS);
         sqLiteDatabase.execSQL(CREATE_GOOD_NEWS);
         sqLiteDatabase.execSQL(CREATE_COMMENT);
-        sqLiteDatabase.execSQL(CREATE_SEARCH);
-
+        sqLiteDatabase.execSQL(CREATE_IT_NEWS);
+        sqLiteDatabase.execSQL(CREATE_Football_NEWS);
+        sqLiteDatabase.execSQL(CREATE_GJ_NEWS);
+        sqLiteDatabase.execSQL(CREATE_CBA_NEWS);
+        sqLiteDatabase.execSQL(CREATE_NBA_NEWS);
+        sqLiteDatabase.execSQL(CREATE_SPORT_NEWS);
+        sqLiteDatabase.execSQL(CREATE_VR_NEWS);
+        sqLiteDatabase.execSQL(CREATE_VIDEO);
+        sqLiteDatabase.execSQL(CREATE_SEE_NEWS);
 
 
     }
@@ -172,22 +168,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("drop table if exists User");
         sqLiteDatabase.execSQL("drop table if exists All_News");
-
-        sqLiteDatabase.execSQL("drop table if exists GJ_News");
-        sqLiteDatabase.execSQL("drop table if exists VR_News");
-        sqLiteDatabase.execSQL("drop table if exists Sport_News");
-        sqLiteDatabase.execSQL("drop table if exists NBA_News");
-        sqLiteDatabase.execSQL("drop table if exists cba_News");
-        sqLiteDatabase.execSQL("drop table if exists IT_News");
-        sqLiteDatabase.execSQL("drop table if exists football_News");
-
-        sqLiteDatabase.execSQL("drop table if exists Video");
         sqLiteDatabase.execSQL("drop table if exists Collection_News");
-        sqLiteDatabase.execSQL("drop table if exists See_News");
         sqLiteDatabase.execSQL("drop table if exists Good_News");
         sqLiteDatabase.execSQL("drop table if exists Comment");
+        sqLiteDatabase.execSQL("drop table if exists It_News");
+        sqLiteDatabase.execSQL("drop table if exists football_News");
+        sqLiteDatabase.execSQL("drop table if exists GJ_News");
+        sqLiteDatabase.execSQL("drop table if exists Cba_News");
+        sqLiteDatabase.execSQL("drop table if exists Nba_News");
+        sqLiteDatabase.execSQL("drop table if exists Sport_News");
+        sqLiteDatabase.execSQL("drop table if exists Vr_News");
+        sqLiteDatabase.execSQL("drop table if exists Video");
         sqLiteDatabase.execSQL("drop table if exists Search");
-
+        sqLiteDatabase.execSQL("drop table if exists See_News");
 
         onCreate(sqLiteDatabase);
     }

@@ -2,6 +2,9 @@ package com.example.news.util;
 
 import java.security.MessageDigest;
 
+/**
+ * MD5格式
+ */
 public class MD5Encoder {
     public static String encode(String string) throws Exception {
         byte[] hash = MessageDigest.getInstance("MD5").digest(

@@ -6,6 +6,10 @@ import android.os.Bundle;
 
 import com.example.news.R;
 
+/**
+ * 封面
+ */
+
 public class CoverActivity1 extends AppCompatActivity {
 
     @Override

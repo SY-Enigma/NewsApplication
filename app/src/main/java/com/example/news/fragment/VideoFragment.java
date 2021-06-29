@@ -111,7 +111,7 @@ public class VideoFragment extends BaseFragment {
             title.setText(mVideo.getTitle());
             author.setText(mVideo.getAuthor());
             if (player != null){
-                player.release();
+                 player.release();
             }
             boolean setUp = player.setUp(mVideo.getPlayaddr(),JCVideoPlayer.SCREEN_LAYOUT_LIST,"");
             if (setUp){

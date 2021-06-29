@@ -83,7 +83,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
-//        searchView = view.findViewById(R.id.search_view);
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
         button = view.findViewById(R.id.onsearch);

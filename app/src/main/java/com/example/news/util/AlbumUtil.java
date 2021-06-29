@@ -18,6 +18,9 @@ import android.provider.MediaStore;
 
 import androidx.annotation.RequiresApi;
 
+/**
+ * 图片转换工具
+ */
 public class AlbumUtil {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String handleImageOnKitKat(Context context, Intent data) {

@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+/**
+ * 本地缓存工具
+ */
 public class LocalCacheUtils {
     private Context context;
     String path = null;

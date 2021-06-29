@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/ll_header"
             android:layout_marginRight="20dip"
-            android:src="@drawable/pull_down_refresh_arrow"
+            android:src="@drawable/ic_refresh"
 
             />
         <ProgressBar

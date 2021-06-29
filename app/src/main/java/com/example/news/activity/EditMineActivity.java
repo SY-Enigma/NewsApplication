@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.news.R;
+import com.example.news.activity.MainActivity;
 import com.example.news.fragment.MineFragment;
 import com.example.news.util.ApplicationUtil;
 import com.example.news.util.MyDatabaseHelper;
@@ -41,6 +42,14 @@ public class EditMineActivity extends AppCompatActivity {
         username = (String) SharedPreUtil.getParam(EditMineActivity.this, SharedPreUtil.LOGIN_DATA, "");
         update_username.setText(username);
 
+        icReturn = findViewById(R.id.ic_return);
+        icReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(EditMineActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         update_user.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,14 +60,7 @@ public class EditMineActivity extends AppCompatActivity {
         });
         ApplicationUtil.getInstance().addActivity(this);
 
-        icReturn = findViewById(R.id.ic_return);
-        icReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(EditMineActivity.this, MineFragment.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 

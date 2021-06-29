@@ -20,6 +20,9 @@ import com.example.news.util.MyDatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 收藏新闻
+ */
 public class CollectionActivity extends AppCompatActivity implements NewsAdapter.CallBack{
     private List<News> newsList = new ArrayList<>();
 

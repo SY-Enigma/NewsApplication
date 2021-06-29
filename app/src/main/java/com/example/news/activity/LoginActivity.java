@@ -24,9 +24,12 @@ import com.example.news.util.TimeCount;
 import java.io.File;
 import java.io.FileInputStream;
 
+/**
+ * 登录
+ */
 public class LoginActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
-    private Button check_user;
+    private Button check_user,register;
     private EditText username, userpassword;
     private ImageView login_head;
 
@@ -39,12 +42,20 @@ public class LoginActivity extends AppCompatActivity {
 
         dbHelper = new MyDatabaseHelper(this, "UserDB.db", null, 6);
 
-        check_user = (Button) findViewById(R.id.check_user);
+        check_user = findViewById(R.id.check_user);
 
-        username = (EditText) findViewById(R.id.login_username);
-        userpassword = (EditText) findViewById(R.id.login_password);
+        username =  findViewById(R.id.login_username);
+        userpassword = findViewById(R.id.login_password);
 
-        login_head = (ImageView) findViewById(R.id.login_head);
+        login_head =findViewById(R.id.login_head);
+        register = findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         try {
             String path = getCacheDir().getPath();
@@ -95,4 +106,6 @@ public class LoginActivity extends AppCompatActivity {
         });
         ApplicationUtil.getInstance().addActivity(this);
     }
+
+
 }

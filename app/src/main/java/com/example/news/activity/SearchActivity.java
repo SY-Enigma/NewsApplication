@@ -26,6 +26,9 @@ import com.example.news.util.MyDatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 查询新闻
+ */
 
 public class SearchActivity extends AppCompatActivity implements NewsAdapter.CallBack{
 
@@ -128,7 +131,6 @@ public class SearchActivity extends AppCompatActivity implements NewsAdapter.Cal
                         } while (cursor.moveToNext());
                     }
                 } else {
-//                if (newsList.size() == 0){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -173,7 +175,6 @@ public class SearchActivity extends AppCompatActivity implements NewsAdapter.Cal
                         } while (cursor.moveToNext());
                     }
                 } else {
-//                if (newsList.size() == 0){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

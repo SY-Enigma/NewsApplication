@@ -20,6 +20,10 @@ import com.example.news.util.MyDatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 查看历史新闻
+ */
+
 public class SeeActivity extends AppCompatActivity implements NewsAdapter.CallBack{
     private List<News> newsList = new ArrayList<>();
 
@@ -72,8 +76,7 @@ public class SeeActivity extends AppCompatActivity implements NewsAdapter.CallBa
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                Dao mdao = new Dao();
-//                newsList = mdao.query_collect();
+
                 SQLiteDatabase db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("select * from See_News", null);
                 if (cursor.getCount() != 0) {
@@ -85,7 +88,6 @@ public class SeeActivity extends AppCompatActivity implements NewsAdapter.CallBa
                             String news_date = cursor.getString(cursor.getColumnIndex("news_date"));
                             String news_author = cursor.getString(cursor.getColumnIndex("news_author"));
                             String news_picurl = cursor.getString(cursor.getColumnIndex("news_picurl"));
-//                            Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(news_picurl);
                             news_picurl = convertUrlHttp(news_picurl);
                             News news = new News( news_title, news_url, news_picurl, news_date, news_author);
                             newsList.add(0,news);
@@ -93,7 +95,6 @@ public class SeeActivity extends AppCompatActivity implements NewsAdapter.CallBa
                         } while (cursor.moveToNext());
                     }
                 } else {
-//                if (newsList.size() == 0){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -108,7 +109,7 @@ public class SeeActivity extends AppCompatActivity implements NewsAdapter.CallBa
                         adapter.notifyDataSetChanged();
                     }
                 });
-//                mdao.close_db();r
+
                 db.close();
             }
         }).start();

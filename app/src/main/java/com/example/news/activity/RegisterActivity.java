@@ -32,6 +32,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+/**
+ * 注册
+ */
 public class RegisterActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
 
@@ -134,38 +137,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-//        save_user.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(checkBox.isChecked()){
-//                    SQLiteDatabase db = dbHelper.getWritableDatabase();
-//
-//                    String username_str = username.getText().toString();
-//                    String userpassword_str = userpassword.getText().toString();
-//                    String repassword_str = repassword.getText().toString();
-//
-//                    if (userpassword_str.equals(repassword_str)) {
-//                        ContentValues values = new ContentValues();
-//                        //组装数据
-//                        values.put("name", username_str);
-//                        values.put("password", userpassword_str);
-//
-//                        db.insert("User", null, values);
-//
-//                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-//                        finish();
-//                    } else {
-//                        Toast.makeText(RegisterActivity.this, "两次密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
-//                    }
-//                    db.close();
-//                }else {
-//                    Toast.makeText(RegisterActivity.this, "请勾选同意使用条款", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        });
-
-
 
         ApplicationUtil.getInstance().addActivity(this);
     }
@@ -203,6 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
         }
     }
+
     private void setHead(String imgPath) {
         if (imgPath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imgPath);

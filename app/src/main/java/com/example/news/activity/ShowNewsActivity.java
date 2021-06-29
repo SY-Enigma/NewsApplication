@@ -22,6 +22,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.news.R;
 import com.example.news.util.MyDatabaseHelper;
 
+/**
+ * 加载新闻详情，利用webView显示
+ */
 public class ShowNewsActivity extends AppCompatActivity {
 
     private WebView show_news;
@@ -155,10 +158,7 @@ public class ShowNewsActivity extends AppCompatActivity {
                 values.put("news_picurl", news_picurl);
 
                 db.insert("Collection_News", null, values);
-
                 db.close();
-
-
                 Toast.makeText(ShowNewsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
             }
         });

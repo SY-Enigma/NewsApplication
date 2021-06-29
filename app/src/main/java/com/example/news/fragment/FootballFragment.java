@@ -53,16 +53,15 @@ public class FootballFragment extends BaseFragment implements LoadListView.ILoad
         view = inflater.inflate(R.layout.news, container, false);
         myBitmapUtils = new MyBitmapUtils(getContext());
         helper = new MyDatabaseHelper(getContext(),"UserDB.db",null,6);
-//        dao = new OperationDao(helper);
         setupViews();
         if (!HttpUtils.isNetworkAvalible(getContext())) {
-            //HttpUtils.checkNetwork(getActivity());
             Toast.makeText(getContext(), "没有网络,请检查网络！", Toast.LENGTH_SHORT).show();
 
         } else {
             initNews();
         }
 
+        //刷新时更新新闻列表，获取新闻的标题等
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -99,15 +98,9 @@ public class FootballFragment extends BaseFragment implements LoadListView.ILoad
             for (int i = count; i < count+10; i++) {
                 JSONObject json_news = jsonArray.getJSONObject(i);
                 String imgUrl = json_news.getString("picUrl");
-                /**
-                 * 采取三级缓存策略加载图片
-                 */
-
+                //采取三级缓存策略加载图片
                 Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-                /**
-                 * 不采取缓存策略
-                 */
-                //Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
+               //不采取缓存策略
                 String title = json_news.getString("title");
                 String date = json_news.getString("ctime");
                 String author_name = json_news.getString("description");
@@ -176,7 +169,7 @@ public class FootballFragment extends BaseFragment implements LoadListView.ILoad
         }
 
     }
-
+    //得到新数据
     private void initNewDatas() {
 
         new Thread(new Runnable() {
@@ -189,7 +182,7 @@ public class FootballFragment extends BaseFragment implements LoadListView.ILoad
         }).start();
 
     }
-
+    //得到新数据
     private void initRefreshDatas() {
         new Thread(new Runnable() {
             @Override

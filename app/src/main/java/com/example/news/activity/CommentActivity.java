@@ -21,6 +21,9 @@ import com.example.news.util.MyDatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 评论新闻
+ */
 public class CommentActivity extends AppCompatActivity implements CommentAdapter.CallBack{
 
     private List<Comment> commentList = new ArrayList<>();

@@ -7,6 +7,9 @@ import android.graphics.Paint;
 
 import java.util.Random;
 
+/**
+ * 验证码实体
+ */
 public class Code {
     /**
      * 随机数数组

@@ -105,7 +105,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openAlbum();
                 } else {
-                    Toast.makeText(getContext(), "You denied the permission", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "拒绝许可", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -160,7 +160,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
             my_head.setImageBitmap(round);
         } else {
-            Toast.makeText(getContext(), "failed to get image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "无法获取图像", Toast.LENGTH_SHORT).show();
         }
     }
 

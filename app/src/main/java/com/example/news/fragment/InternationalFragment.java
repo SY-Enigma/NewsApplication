@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ *国际新闻
  *
  */
 
@@ -40,13 +41,14 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
     final String url = "http://api.tianapi.com/world/index?key=5247ca753ac53750629e9a01664d99c2&num=30";
 
     private View view;
+    //定义下拉刷新
     private LoadListView mListView;
+    //新闻列表
     private List<News> newsList;
     private MyDatabaseHelper helper;
-
-
+    //新闻适配器
     private NewsAdapter adapter;
-
+    //图片缓存
     private MyBitmapUtils myBitmapUtils;
 
     public InternationalFragment() {
@@ -59,6 +61,7 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
         helper = new MyDatabaseHelper(getContext(),"UserDB.db",null,6);
 
         setupViews();
+        //获取网络
         if (!HttpUtils.isNetworkAvalible(getContext())) {
 
             Toast.makeText(getContext(),"没有网络,请检查网络！",Toast.LENGTH_SHORT).show();
@@ -66,7 +69,7 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
         } else {
             initNews();
         }
-
+        //获取新闻的标题，图片，日期，作者
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -97,22 +100,17 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
     private void parseJSONWithGSON(String jsonData) {
 
         try {
-//            Dao mdao = new Dao();
+
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
+            //数量，随机定义10条新闻，并展现出来
             int count = new Random().nextInt(10)+1;
             for (int i = count; i < count+10; i++) {
                 JSONObject json_news = jsonArray.getJSONObject(i);
                 String imgUrl = json_news.getString("picUrl");
-                /**
-                 * 采取三级缓存策略加载图片
-                 */
-
+              //采取三级缓存策略加载图片
                 Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-                /**
-                 * 不采取缓存策略
-                 */
-                //Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
+               //不采取缓存策略
                 String title = json_news.getString("title");
                 String date = json_news.getString("ctime");
                 String author_name = json_news.getString("description");
@@ -149,54 +147,6 @@ public class InternationalFragment extends BaseFragment implements LoadListView.
 
 
     }
-
-//    private void parseJSONWithGSON_Refresh(String jsonData) {
-//
-//        try {
-////            Dao mdao = new Dao();
-////            newsList.clear();
-//            JSONObject jsonObject = new JSONObject(jsonData);
-//            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-//            int count = new Random().nextInt(10)+1;
-//            for (int i =count;i<count+10;i++){
-//                JSONObject json_news = jsonArray.getJSONObject(i);
-//                String imgUrl = json_news.getString("picUrl");
-//                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-//                String title = json_news.getString("title");
-//                String date = json_news.getString("ctime");
-//                String author_name = json_news.getString("description");
-//                String url = json_news.getString("url");
-//
-//                News news = new News(bitmap, title, url, imgUrl, date, author_name);
-////            mdao.Add(news,"channel_Econ");
-////            mdao.close_db();
-//                newsList.add(news);
-//            }
-////            JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(30) + 1);
-////            String imgUrl = json_news.getString("picUrl");
-////            Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-////            String title = json_news.getString("title");
-////            String date = json_news.getString("ctime");
-////            String author_name = json_news.getString("description");
-////            String url = json_news.getString("url");
-////
-////            News news = new News(bitmap, title, url, imgUrl, date, author_name);
-//////            mdao.Add(news,"channel_Ente");
-//////            mdao.close_db();
-////            newsList.add(0, news);
-//            getActivity().runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    adapter.notifyDataSetChanged();
-//                }
-//            });
-//
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     private void parseJSONWithGSON_Load(String jsonData) {
 

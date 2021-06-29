@@ -18,6 +18,9 @@ import com.example.news.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**、
+ * 自定义控件，实现上拉加载下拉刷新
+ */
 public class LoadListView extends ListView
         implements AbsListView.OnScrollListener {
     private int lastVisibleItem; //最后一个可见项

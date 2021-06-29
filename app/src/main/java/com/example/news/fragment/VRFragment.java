@@ -108,15 +108,9 @@ public class VRFragment extends BaseFragment implements LoadListView.ILoadListen
             for (int i = count; i < count+10; i++) {
                 JSONObject json_news = jsonArray.getJSONObject(i);
                 String imgUrl = json_news.getString("picUrl");
-                /**
-                 * 采取三级缓存策略加载图片
-                 */
-
+                //采取三级缓存策略加载图片
                 Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-                /**
-                 * 不采取缓存策略
-                 */
-                //Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
+              //不采取缓存策略
                 String title = json_news.getString("title");
                 String date = json_news.getString("ctime");
                 String author_name = json_news.getString("description");
@@ -133,7 +127,7 @@ public class VRFragment extends BaseFragment implements LoadListView.ILoadListen
                 values.put("news_author", author_name);
                 values.put("news_picurl", imgUrl);
 
-                db.insert("VR_News", null, values);
+                db.insert("Vr_News", null, values);
                 db.insert("All_News",null,values);
 
                 db.close();
@@ -155,51 +149,13 @@ public class VRFragment extends BaseFragment implements LoadListView.ILoadListen
 
     }
 
-    private void parseJSONWithGSON_Refresh(String jsonData) {
-
-        try {
-
-            JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-
-            int count = new Random().nextInt(10)+1;
-            for (int i = count;i< count+10;i++) {
-                JSONObject json_news = jsonArray.getJSONObject(i);
-                String imgUrl = json_news.getString("picUrl");
-                Log.d(TAG, "url:*-*-*-*-*-*-*" + imgUrl);
-                Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-//                Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
-                String title = json_news.getString("title");
-                String date = json_news.getString("ctime");
-                String author_name = json_news.getString("description");
-                String url = json_news.getString("url");
-
-                News news = new News(bitmap, title, url, imgUrl, date, author_name);
-
-                newsList.add(0, news);
-            }
-
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.notifyDataSetChanged();
-                }
-            });
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void parseJSONWithGSON_Load(String jsonData) {
 
         try {
 
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
-
-            JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(27) + 1);
+            JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(25) + 1);
             String imgUrl = json_news.getString("picUrl");
             Log.d(TAG, "url:*-*-*-*-*-*-*" + imgUrl);
             Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);

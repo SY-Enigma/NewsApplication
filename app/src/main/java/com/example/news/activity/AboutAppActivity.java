@@ -6,6 +6,10 @@ import android.os.Bundle;
 
 import com.example.news.R;
 
+/**
+ * 关于应用
+ * 
+ */
 public class AboutAppActivity extends AppCompatActivity {
 
     @Override

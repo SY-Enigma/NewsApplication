@@ -38,7 +38,6 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
     private LoadListView mListView;
     private List<News> newsList;
     private MyDatabaseHelper helper;
-
     private NewsAdapter adapter;
     private MyBitmapUtils myBitmapUtils;
 
@@ -51,10 +50,8 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
         view = inflater.inflate(R.layout.news, container, false);
         myBitmapUtils = new MyBitmapUtils(getContext());
         helper = new MyDatabaseHelper(getContext(),"UserDB.db",null,6);
-//        dao = new OperationDao(helper);
         setupViews();
         if (!HttpUtils.isNetworkAvalible(getContext())) {
-            //HttpUtils.checkNetwork(getActivity());
             Toast.makeText(getContext(), "当前没有可以使用的网络，请检查网络设置！", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -96,15 +93,9 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
             for (int i = count; i < count+10; i++) {
                 JSONObject json_news = jsonArray.getJSONObject(i);
                 String imgUrl = json_news.getString("picUrl");
-                /**
-                 * 采取三级缓存策略加载图片
-                 */
-
+                //采取三级缓存策略加载图片
                 Bitmap bitmap = myBitmapUtils.getBitmap(imgUrl);
-                /**
-                 * 不采取缓存策略
-                 */
-                //Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
+                //不采取缓存策略
                 String title = json_news.getString("title");
                 String date = json_news.getString("ctime");
                 String author_name = json_news.getString("description");
@@ -143,15 +134,14 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
 
     }
 
-
-
+    //实现加载后数据
     private void parseJSONWithGSON_Load(String jsonData) {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("newslist");
 
-                JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(28)+1);
+                JSONObject json_news = jsonArray.getJSONObject(new Random().nextInt(20)+1);
                 String imgUrl = json_news.getString("picUrl");
                 Bitmap bitmap = HttpUtils.decodeUriAsBitmapFromNet(imgUrl);
                 String title = json_news.getString("title");
@@ -187,6 +177,7 @@ public class SportFragment extends BaseFragment implements LoadListView.ILoadLis
 
     }
 
+    //刷新
     private void initRefreshDatas() {
         new Thread(new Runnable() {
             @Override

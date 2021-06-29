@@ -3,6 +3,9 @@ package com.example.news.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * SharedPreferences存储个人信息工具
+ */
 public class SharedPreUtil {
     private static final String FILE_NAME = "user_login";
     //存储用户登录信息（用户名）

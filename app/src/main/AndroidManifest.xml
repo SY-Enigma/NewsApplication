@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.News">
-        <activity android:name=".activity.CoverActivity1"></activity>
+        <activity android:name=".activity.CoverActivity1"/>
         <activity android:name=".activity.AboutAppActivity" />
         <activity android:name=".activity.SeeActivity" />
         <activity android:name=".activity.GoodActivity" />
@@ -30,17 +30,17 @@
         <activity android:name=".activity.LoginOrRegisterActivity" />
         <activity android:name=".activity.EditMineActivity" />
         <activity android:name=".activity.ShowNewsActivity" />
-        <activity android:name=".activity.WelcomeActivity">
+
+
+
+        <activity android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustNothing" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <activity android:name=".HistoryActivity" /> -->
-        <!-- <activity android:name=".NewsActivity" /> -->
-        <activity
-            android:name=".activity.MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+        </activity>
     </application>
 
 </manifest>

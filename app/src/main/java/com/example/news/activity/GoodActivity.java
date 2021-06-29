@@ -21,13 +21,16 @@ import com.example.news.util.MyDatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 点赞功能，从数据库Good_News中获取点赞的新闻
+ * 可以进行删除点赞的新闻
+ */
 public class GoodActivity extends AppCompatActivity implements NewsAdapter.CallBack{
+    //利用list数组获取新闻列表
     private List<News> newsList = new ArrayList<>();
-
     private ListView good;
 
     private NewsAdapter adapter;
-
     private MyDatabaseHelper helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,6 @@ public class GoodActivity extends AppCompatActivity implements NewsAdapter.CallB
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                Dao mdao = new Dao();
-//                newsList = mdao.query_collect();
                 SQLiteDatabase db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("select * from Good_News", null);
                 if (cursor.getCount() != 0) {
@@ -79,7 +80,6 @@ public class GoodActivity extends AppCompatActivity implements NewsAdapter.CallB
                         } while (cursor.moveToNext());
                     }
                 } else {
-//                if (newsList.size() == 0){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -94,7 +94,6 @@ public class GoodActivity extends AppCompatActivity implements NewsAdapter.CallB
                         adapter.notifyDataSetChanged();
                     }
                 });
-//                mdao.close_db();
                 db.close();
             }
         }).start();

@@ -23,6 +23,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * 网络请求工具
+ */
 public class HttpUtils {
     //判断dialog是否存在的标志
     private static Dialog dialog = null;

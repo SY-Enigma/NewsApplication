@@ -10,6 +10,9 @@ import android.widget.Button;
 import com.example.news.R;
 import com.example.news.util.ApplicationUtil;
 
+/**
+ * 登录和注册界面
+ */
 public class LoginOrRegisterActivity extends AppCompatActivity {
     private Button login, register;
 
